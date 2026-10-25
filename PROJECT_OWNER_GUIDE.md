@@ -220,7 +220,7 @@ The backend also has `npm start` to run the compiled `dist/server.js`. The front
 The README describes one possible split deployment:
 
 1. Create a MongoDB Atlas database and a dedicated database user. Restrict database network access to the backend host where practical.
-2. Deploy `backend` as a Node web service. Build with `npm install && npm run build`, start with `npm start`, and set `NODE_ENV=production`, `MONGODB_URI`, and `CLIENT_URL`. The host should provide `PORT`. The server binds to `0.0.0.0` and connects to MongoDB before accepting requests.
+2. Deploy `backend` as a Node web service. Build with `npm install --include=dev && npm run build`, start with `npm start`, and set `NODE_ENV=production`, `MONGODB_URI`, and `CLIENT_URL`. The build needs TypeScript and the `@types/*` packages from `devDependencies`; `--include=dev` keeps them installed even when the build environment sets `NODE_ENV=production`. The host should provide `PORT`. The server binds to `0.0.0.0` and connects to MongoDB before accepting requests.
 3. Deploy `frontend` to a Next.js-compatible host. Set its root directory to `frontend` and `NEXT_PUBLIC_API_URL` to the HTTPS backend URL.
 4. Configure `CLIENT_URL` to the deployed frontend’s exact origin, then check `/api/health` and submit a test requirement through the UI.
 

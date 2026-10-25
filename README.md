@@ -161,7 +161,7 @@ Each `Requirement` has event fields (`eventName`, `eventType`, dates, `location`
 ## Deployment
 
 1. **MongoDB Atlas:** create a database user and database, restrict network access to the backend service as practical, then copy the connection URI into Render. Never commit credentials.
-2. **Render:** create a Node web service with root `backend`, build `npm install && npm run build`, and start `npm start`. Set `NODE_ENV=production`, `MONGODB_URI`, and `CLIENT_URL` to the deployed frontend origin. Render sets `PORT`; the server binds to `0.0.0.0` and waits for MongoDB before listening. Health check path: `/api/health`. The local Docker database is for development only; use Atlas for the deployed backend.
+2. **Render:** create a Node web service with root `backend`, build `npm install --include=dev && npm run build`, and start `npm start`. The build needs TypeScript and the `@types/*` packages from `devDependencies`; `--include=dev` keeps them installed even when the build environment sets `NODE_ENV=production`. Set `NODE_ENV=production`, `MONGODB_URI`, and `CLIENT_URL` to the deployed frontend origin. Render sets `PORT`; the server binds to `0.0.0.0` and waits for MongoDB before listening. Health check path: `/api/health`. The local Docker database is for development only; use Atlas for the deployed backend.
 3. **Vercel:** import the repository, set root directory `frontend`, and configure `NEXT_PUBLIC_API_URL` to the HTTPS Render service URL. Set the matching Vercel origin in Render's `CLIENT_URL`.
 4. Test `/api/health` and submit a requirement from the deployed UI. Free Render instances may sleep and have a cold start on the first request.
 
