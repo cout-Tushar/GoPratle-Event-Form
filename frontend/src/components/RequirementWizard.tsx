@@ -769,7 +769,10 @@ function FormFooter({ step, saving, setStep }: {
   );
 }
 
-function Budget({ register, error }: FormStepProps) {
+function Budget({ register, error }: {
+  register: UseFormRegister<RequirementFormInput>;
+  error: (path: string) => string | undefined;
+}) {
   return (
     <div className="budget-row">
       <TextInput
