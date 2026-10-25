@@ -8,6 +8,9 @@ import { requestLogger } from './middleware/requestLogger';
 export function createApp() {
   const app = express();
   const allowedOrigin = process.env.CLIENT_URL ?? 'http://localhost:3000';
+
+  // Render's load balancer is one trusted proxy in front of this service.
+  app.set('trust proxy', 1);
   app.disable('x-powered-by');
   app.use(helmet());
   app.use(
